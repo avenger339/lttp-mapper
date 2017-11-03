@@ -1,0 +1,5 @@
+class Reigon {
+  constructor () {
+    //TODO
+  }
+}
