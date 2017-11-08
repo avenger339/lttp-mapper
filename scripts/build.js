@@ -44,16 +44,34 @@ function copyAssets () {
 }
 
 function processCSS () {
+  var promises = []
+  
   return new Promise((resolve, reject) => {
     fs.mkdir(distPath + '/css').then(() =>
-      fs.readFile(path.join(__dirname, '../src/less/map.less'), 'utf8')
-    ).then((data) =>
-      less.render(data)
-    ).then((output) =>
-      fs.writeFile((distPath + '/css/map.css'), output.css)
-    ).then(() =>
-      resolve()
-    ).catch((err) =>
+      fs.readdir(path.join(__dirname, '../src/less/'))
+    ).then((files) => {
+      files.forEach((file) => {
+        console.log(`Processing ${file}`)
+        var filename = file.substr(0, file.indexOf("."))
+        promises.push(new Promise((resolve, reject) => {
+          fs.readFile(path.join(__dirname, `../src/less/${filename}.less`), 'utf8').then((data) =>
+            less.render(data)
+          ).then((output) =>
+            fs.writeFile((distPath + `/css/${filename}.css`), output.css)
+          ).then(() =>
+            resolve()
+          ).catch((err) =>
+            reject(err)
+          )
+        }))
+      })
+      
+      Promise.all(promises).then(() =>
+        resolve()
+      ).catch((err) => 
+        reject(err)
+      )
+    }).catch((err) => 
       reject(err)
     )
   })
@@ -72,29 +90,49 @@ function renderPugTemplates () {
 }
 
 function browserifyScripts () {
+  var promises = []
+    
   return new Promise((resolve, reject) => {
-    var b = browserify(null, {standalone: 'Map'})
-    b.add(path.join(__dirname, '../src/scripts/map.js'))
+    fs.mkdir(distPath + '/scripts').then(() =>
+      fs.readdir(path.join(__dirname, '../src/scripts/'))
+    ).then((files) => {
+      files.forEach((file) => {
 
-    fs.mkdir(distPath + '/scripts').then(() => {
-      return new Promise((resolve, reject) => {
-        b.bundle((err, buffer) => {
-          if (err) reject(err)
-          resolve(buffer.toString())
-        })
+        var filename = file.substr(0, file.indexOf("."))
+        if(filename !== "locationbox") {
+          console.log(`Browserifying and Uglifying ${file}`)
+          promises.push(new Promise((resolve, reject) => {
+            var b = browserify(null, {standalone: filename.charAt(0).toUpperCase() + filename.slice(1)})
+            b.add(path.join(__dirname, `../src/scripts/${filename}.js`))
+            new Promise((resolve, reject) => {
+              b.bundle((err, buffer) => {
+                if (err) reject(err)
+                resolve(buffer.toString())
+              })
+            }).then((code) => {
+              return new Promise((resolve, reject) => {
+                var result = uglify.minify(code)
+                if (result.error) reject(err)
+                resolve(result.code)
+              })
+            }).then((code) =>
+              fs.writeFile(distPath + `/scripts/${filename}.js`, code)
+            ).then(() =>
+              resolve()
+            ).catch((err) => {
+              reject(err)
+            })
+          }))
+        }
       })
-    }).then((code) => {
-      return new Promise((resolve, reject) => {
-        var result = uglify.minify(code)
-        if (result.error) reject(err)
-        resolve(result.code)
-      })
-    }).then((code) =>
-      fs.writeFile(distPath + '/scripts/map.js', code)
-    ).then(() =>
-      resolve()
-    ).catch((err) => {
+      
+      Promise.all(promises).then(() =>
+        resolve()
+      ).catch((err) => 
+        reject(err)
+      )
+    }).catch((err) => 
       reject(err)
-    })
+    )
   })
 }

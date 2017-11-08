@@ -1,0 +1,55 @@
+@arrow-width: 8px solid transparent;
+@arrow-height: 20px solid #ffffff;
+
+.locationbox {
+  background-color: #ffffff;
+  position: absolute;
+  border-radius: 4px;
+  z-index: 10002;
+  visibility: hidden;
+  
+  .closebutton {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: #666666;
+    z-index: 10004;
+    cursor: pointer;
+  }
+  
+  .content {
+    position: absolute;
+    width: calc(~"100% - 20px");
+    height: calc(~"100% - 20px");
+    padding: 10px;
+    top: 0;
+    left: 0;
+  }
+  .arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    &.up {
+      border-left: @arrow-width;
+      border-right: @arrow-width;
+      border-bottom: @arrow-height;
+    }
+    &.down {
+      border-left: @arrow-width;
+      border-right: @arrow-width;
+      border-top: @arrow-height;
+    }
+    &.right {
+      border-top: @arrow-width;
+      border-bottom: @arrow-width;
+      border-left: @arrow-height;
+    }
+    &.left {
+      border-top: @arrow-width;
+      border-bottom: @arrow-width;
+      border-right: @arrow-height;
+    }
+  }
+}

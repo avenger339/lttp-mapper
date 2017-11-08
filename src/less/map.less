@@ -26,19 +26,26 @@ body {
     &.darkworld {
       background-image: url('../assets/darkworld.png')
     }
+    .draggable {
+      width:100%;
+      height:100%;
+      cursor: move; /* fallback if grab cursor is unsupported */
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+      position:absolute;
+      top:0;
+      left:0;
+      &:active {
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+      }
+    }
     width: 2007px;
     height: 2007px;
     position: absolute;
     overflow: hidden;
-    cursor: move; /* fallback if grab cursor is unsupported */
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
-    &:active {
-      cursor: grabbing;
-      cursor: -moz-grabbing;
-      cursor: -webkit-grabbing;
-      }
   }
   .switch {
     &:before {

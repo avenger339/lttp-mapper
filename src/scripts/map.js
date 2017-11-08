@@ -1,3 +1,5 @@
+const Box = require('./locationbox')
+
 var clickLocation
 var curOffset
 
@@ -5,11 +7,9 @@ function handleSwitchClick () {
   if (this._map.classList.contains('lightworld')) {
     this._map.classList.remove('lightworld')
     this._map.classList.add('darkworld')
-    this._map.innerHTML = 'Light World'
   } else if (this._map.classList.contains('darkworld')) {
     this._map.classList.remove('darkworld')
     this._map.classList.add('lightworld')
-    this._map.innerHTML = 'Darkx World'
   } else {
     console.log('what?????')
   }
@@ -22,7 +22,6 @@ function handleMapDrag (e) {
 }
 
 function handleMapDrop () {
-  console.log('removing mousemove...')
   document.removeEventListener('mousemove', this._handleMouseMove)
 }
 
@@ -45,14 +44,22 @@ class Map {
     this._holder = document.getElementsByClassName('mapholder')[0]
     this._map = document.getElementsByClassName('map')[0]
     this._map.style.left = this._map.style.top = '0'
-
     this._handleMouseMove = handleMouseMove.bind(this)
 
     this._switch.addEventListener('click', handleSwitchClick.bind(this))
 
-    this._map.addEventListener('mousedown', handleMapDrag.bind(this))
+    this._draggable = document.getElementsByClassName('draggable')[0]
+    this._draggable.addEventListener('mousedown', handleMapDrag.bind(this))
     document.addEventListener('mouseup', handleMapDrop.bind(this))
     // window.addEventListener('resize', handleWindowResize.bind(this))
+    
+    var box = new Box('up', -80)
+    box.width = 200
+    box.height = 50
+    box.left = 62
+    box.top = 130
+    box.content = 'Pedestal Item!  Whatever I hope it\'s Flippers'
+    box.show()
   }
 }
 
