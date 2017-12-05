@@ -7,9 +7,11 @@ function handleSwitchClick () {
   if (this._map.classList.contains('lightworld')) {
     this._map.classList.remove('lightworld')
     this._map.classList.add('darkworld')
+    this._switch.innerHTML = 'Light'
   } else if (this._map.classList.contains('darkworld')) {
     this._map.classList.remove('darkworld')
     this._map.classList.add('lightworld')
+    this._switch.innerHTML = 'Dark'
   } else {
     console.log('what?????')
   }
@@ -51,15 +53,17 @@ class Map {
     this._draggable = document.getElementsByClassName('draggable')[0]
     this._draggable.addEventListener('mousedown', handleMapDrag.bind(this))
     document.addEventListener('mouseup', handleMapDrop.bind(this))
-    // window.addEventListener('resize', handleWindowResize.bind(this))
-    
-    var box = new Box('up', -80)
-    box.width = 200
-    box.height = 50
-    box.left = 62
-    box.top = 130
-    box.content = 'Pedestal Item!  Whatever I hope it\'s Flippers'
-    box.show()
+
+    var box = new Box({x: 504, y: 96})
+    box.content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
+    document.onkeydown = function (e) {
+      e = e || window.event
+
+      if ((e.key && (e.key === 'Escape' || e.key === 'Esc')) || e.keyCode === 27) {
+        box.hide()
+      }
+    }
   }
 }
 

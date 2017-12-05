@@ -45,14 +45,14 @@ function copyAssets () {
 
 function processCSS () {
   var promises = []
-  
+
   return new Promise((resolve, reject) => {
     fs.mkdir(distPath + '/css').then(() =>
       fs.readdir(path.join(__dirname, '../src/less/'))
     ).then((files) => {
       files.forEach((file) => {
         console.log(`Processing ${file}`)
-        var filename = file.substr(0, file.indexOf("."))
+        var filename = file.substr(0, file.indexOf('.'))
         promises.push(new Promise((resolve, reject) => {
           fs.readFile(path.join(__dirname, `../src/less/${filename}.less`), 'utf8').then((data) =>
             less.render(data)
@@ -65,13 +65,13 @@ function processCSS () {
           )
         }))
       })
-      
+
       Promise.all(promises).then(() =>
         resolve()
-      ).catch((err) => 
+      ).catch((err) =>
         reject(err)
       )
-    }).catch((err) => 
+    }).catch((err) =>
       reject(err)
     )
   })
@@ -91,15 +91,14 @@ function renderPugTemplates () {
 
 function browserifyScripts () {
   var promises = []
-    
+
   return new Promise((resolve, reject) => {
     fs.mkdir(distPath + '/scripts').then(() =>
       fs.readdir(path.join(__dirname, '../src/scripts/'))
     ).then((files) => {
       files.forEach((file) => {
-
-        var filename = file.substr(0, file.indexOf("."))
-        if(filename !== "locationbox") {
+        var filename = file.substr(0, file.indexOf('.'))
+        if (filename !== 'locationbox') {
           console.log(`Browserifying and Uglifying ${file}`)
           promises.push(new Promise((resolve, reject) => {
             var b = browserify(null, {standalone: filename.charAt(0).toUpperCase() + filename.slice(1)})
@@ -125,13 +124,13 @@ function browserifyScripts () {
           }))
         }
       })
-      
+
       Promise.all(promises).then(() =>
         resolve()
-      ).catch((err) => 
+      ).catch((err) =>
         reject(err)
       )
-    }).catch((err) => 
+    }).catch((err) =>
       reject(err)
     )
   })

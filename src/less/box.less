@@ -1,55 +1,79 @@
-@arrow-width: 8px solid transparent;
-@arrow-height: 20px solid #ffffff;
+@arrow-width: 8px;
+@arrow-height: 20px;
+
+.icon {
+  width: 16px;
+  height: 16px;
+  background-color: #666666;
+  position: absolute;
+  cursor: pointer;
+  &.closed {
+    background-image: url('../assets/sprites/closedchest.png')
+  }
+  &.open {
+    background-image: url('../assets/sprites/openchest.png')
+  }
+  
+}
 
 .locationbox {
   background-color: #ffffff;
   position: absolute;
   border-radius: 4px;
   z-index: 10002;
-  visibility: hidden;
-  
-  .closebutton {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    width: 20px;
-    height: 20px;
-    background-color: #666666;
-    z-index: 10004;
-    cursor: pointer;
+  padding: 5px;
+  max-width:300px;
+  min-height: 40px;
+
+  .controlsContainer {
+    float: right;
+    .closebutton {
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      background-color: #666666;
+      z-index: 10004;
+      cursor: pointer;
+    }
+
+    .checked {
+      position: absolute;
+      bottom: 2px;
+    }
   }
   
   .content {
-    position: absolute;
-    width: calc(~"100% - 20px");
-    height: calc(~"100% - 20px");
-    padding: 10px;
-    top: 0;
-    left: 0;
+    float: left;
+    max-width: 271px; 
+    padding-right: 5px;
   }
   .arrow {
     position: absolute;
     width: 0;
     height: 0;
     &.up {
-      border-left: @arrow-width;
-      border-right: @arrow-width;
-      border-bottom: @arrow-height;
+      border-left: @arrow-width solid transparent;
+      border-right: @arrow-width solid transparent;
+      border-bottom: @arrow-height solid #ffffff;
+      top: -(@arrow-height)
     }
     &.down {
-      border-left: @arrow-width;
-      border-right: @arrow-width;
-      border-top: @arrow-height;
+      border-left: @arrow-width solid transparent;
+      border-right: @arrow-width solid transparent;
+      border-top: @arrow-height solid #ffffff;
+      bottom: -(@arrow-height)
     }
     &.right {
-      border-top: @arrow-width;
-      border-bottom: @arrow-width;
-      border-left: @arrow-height;
+      /*border-top: @arrow-width solid transparent;
+      border-bottom: @arrow-width solid transparent;
+      border-left: @arrow-height solid #ffffff;*/
+      right: (@arrow-width * 2)
     }
     &.left {
-      border-top: @arrow-width;
-      border-bottom: @arrow-width;
-      border-right: @arrow-height;
+      /*border-top: @arrow-width solid transparent;
+      border-bottom: @arrow-width solid transparent;
+      border-right: @arrow-height solid #ffffff;*/
+      left: (@arrow-width * 2)
     }
   }
 }

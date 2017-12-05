@@ -21,10 +21,10 @@ body {
   overflow: hidden;
   .map {
     &.lightworld {
-      background-image: url('../assets/lightworld.png')
+      background-image: url('../assets/maps/lightworld.png')
     }
     &.darkworld {
-      background-image: url('../assets/darkworld.png')
+      background-image: url('../assets/maps/darkworld.png')
     }
     .draggable {
       width:100%;
@@ -50,6 +50,9 @@ body {
   .switch {
     &:before {
       content: "Switch To ";
+    }
+    &:after {
+      content: " World";
     }
     cursor: pointer;
     position: absolute;
