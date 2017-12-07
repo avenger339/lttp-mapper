@@ -17,6 +17,14 @@ function handleSwitchClick () {
   }
 }
 
+function handleInfoClick () {
+  this._infocontainer.style.visibility = 'visible'
+}
+
+function handleInfoCloseClick () {
+  this._infocontainer.style.visibility = 'hidden'
+}
+
 function handleMapDrag (e) {
   clickLocation = {x: e.clientX, y: e.clientY}
   curOffset = {x: this._map.offsetLeft, y: this._map.offsetTop }
@@ -43,12 +51,17 @@ class Map {
   constructor () {
     console.log('ALTTP Map 0.1 Javascript....')
     this._switch = document.getElementsByClassName('switch')[0]
+    this._info = document.getElementsByClassName('info')[0]
+    this._infocontainer = document.getElementsByClassName('infocontainer')[0]
+    this._closepane = document.getElementsByClassName('closepane')[0]
     this._holder = document.getElementsByClassName('mapholder')[0]
     this._map = document.getElementsByClassName('map')[0]
     this._map.style.left = this._map.style.top = '0'
     this._handleMouseMove = handleMouseMove.bind(this)
 
     this._switch.addEventListener('click', handleSwitchClick.bind(this))
+    this._info.addEventListener('click', handleInfoClick.bind(this))
+    this._closepane.addEventListener('click', handleInfoCloseClick.bind(this))
 
     this._draggable = document.getElementsByClassName('draggable')[0]
     this._draggable.addEventListener('mousedown', handleMapDrag.bind(this))

@@ -1,15 +1,27 @@
 doctype html
 html(lang="en")
-    head
-        link(rel="stylesheet", type="text/css", href='./css/map.css')
-        link(rel="stylesheet", type="text/css", href='./css/box.css')
-        title= "ALTTP Tracker"
-    body(scrolling="no")
-        div(class='header') 
-            div(class='text') Link To The Past Randomizer Tracker Ver 0.1
-        div(class='mapholder')
-            div(class='map lightworld')
-              div(class='draggable')
-            div(class='switch') Dark
-        script(language="javascript", src="./scripts/map.js")
-        script(language="javascript") new Map()
+  head
+    link(rel="stylesheet", type="text/css", href='./css/map.css')
+    link(rel="stylesheet", type="text/css", href='./css/box.css')
+    title= "ALTTP Tracker"
+  body(scrolling="no")
+    div(class="infocontainer")
+      div(class='infopane')
+        div(class='closepane')
+        p
+          span For use with the Link to the Past Randomizer which can be found at 
+          a(href='https://vt.alttp.run') https://vt.alttp.run
+          span .
+        p Written by avenger339.
+        p All assets are copyright Nintendo.
+        p Special Thanks to Dessyreqt, Kakarat, and everyone involved with the randomizer.
+      div(class='shader') 
+    div(class='header') 
+      div(class='text') Link To The Past Randomizer Tracker Ver 0.1
+    div(class='mapholder')
+      div(class='map lightworld')
+        div(class='draggable')
+      div(class='switch') Dark
+      div(class='info') Info
+    script(language="javascript", src="./scripts/map.js")
+    script(language="javascript") new Map()

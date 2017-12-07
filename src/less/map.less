@@ -63,6 +63,16 @@ body {
     padding: 5px;
     border-radius: 0 10px 0 0;
   }
+  .info {
+   cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: inline-block;
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 10px 0 0 0;
+  }
 }
   
 .header {
@@ -80,5 +90,48 @@ body {
   z-index:10002;
   pointer-events: none;
 }
+.infocontainer {
+  visibility: hidden;
+  position: absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height: 100%;
 
 
+  .shader {
+    background-color: #000000;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index:19000;
+  }
+
+  .infopane {
+    position:absolute;
+    background-color: #ffffff;
+    z-index:19001;
+    top:50%;
+    left:50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    padding: 0 30px 0 10px;
+    border-radius: 10px;
+    
+    .closepane {
+      position:absolute;
+      width:20px;
+      height:20px;
+      right: 5px;
+      top: 5px;
+      background-color: #666666;
+      cursor: pointer;
+    }
+
+  }
+}
